@@ -1,3 +1,5 @@
+import "arrow"
+
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
@@ -23,6 +25,11 @@ function Player:checkTopAndBottom()
 	end
 end
 
+function Player:shoot()
+	local arrowInstance = Arrow(self.x + 40, self.y)
+	arrowInstance:add()
+end
+
 function Player:update()
 	Player.super.update(self)
 	self:checkTopAndBottom()
@@ -31,5 +38,8 @@ function Player:update()
 	end
 	if pd.buttonIsPressed(pd.kButtonDown) and not self.atTheBottom then
 		self:moveBy(0, self.moveSpeed)
+	end
+	if pd.buttonJustPressed(pd.kButtonA) then
+		self:shoot()
 	end
 end
