@@ -9,7 +9,7 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 
 local function initialize()
-	local playerInstance = Player(40, 120)
+	local playerInstance = Player()
 	playerInstance:add()
 end
 

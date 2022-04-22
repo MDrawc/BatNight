@@ -3,9 +3,33 @@ local gfx <const> = pd.graphics
 
 class('Player').extends(gfx.sprite)
 
-function Player:init(x, y)
+function Player:init()
 	local playerImage = gfx.image.new("images/player")
 	self:setImage(playerImage)
-	self:moveTo(x, y)
-	self.moveSpeed = 1
+	self:moveTo(30, 120)
+	self.moveSpeed = 6
+	self.atTheTop = false
+	self.atTheBottom = false
+end
+
+function Player:checkTopAndBottom()
+	if self.y < 19 then self.atTheTop = true
+	else 
+		self.atTheTop = false
+	end
+	if self.y > 220 then self.atTheBottom = true
+	else 
+		self.atTheBottom = false
+	end
+end
+
+function Player:update()
+	Player.super.update(self)
+	self:checkTopAndBottom()
+	if pd.buttonIsPressed(pd.kButtonUp) and not self.atTheTop then
+		self:moveBy(0, -self.moveSpeed)
+	end
+	if pd.buttonIsPressed(pd.kButtonDown) and not self.atTheBottom then
+		self:moveBy(0, self.moveSpeed)
+	end
 end
