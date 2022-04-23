@@ -1,4 +1,6 @@
+import "bow"
 import "arrow"
+
 
 local pd <const> = playdate
 local gfx <const> = pd.graphics
@@ -6,13 +8,14 @@ local gfx <const> = pd.graphics
 class('Player').extends(gfx.sprite)
 
 function Player:init()
-	local playerImage = gfx.image.new("images/player")
-	self:setImage(playerImage)
+	self:setImage(gfx.image.new("images/player"))
 	self:moveTo(30, 120)
 	self.moveSpeed = 6
 	self.atTheTop = false
 	self.atTheBottom = false
-	self.bowAngle = 45
+	self.bowAngle = 15
+	local bowInstance = Bow(self.x, self.y)
+	bowInstance:add()
 end
 
 function Player:checkTopAndBottom()

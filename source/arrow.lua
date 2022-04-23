@@ -3,10 +3,8 @@ local gfx <const> = pd.graphics
 
 class('Arrow').extends(gfx.sprite)
 
-local arrowImage = gfx.image.new("images/arrow")
-
 function Arrow:init(x, y, angle)
-	self:setImage(arrowImage)
+	self:setImage(gfx.image.new("images/arrow"))
 	self:moveTo(x, y)
 	self:setCollideRect(0, 0, self:getSize())
 	self:setGroups(1)
@@ -22,9 +20,15 @@ function Arrow:destroy()
 	end
 end
 
+function Arrow:fly()
+	local dx = self.speed * math.cos(math.rad(self.angle))
+	local dy = self.speed * math.sin(math.rad(self.angle))
+	self:moveWithCollisions(self.x + dx, self.y + dy)
+end
+
 function Arrow:update()
 	Arrow.super.update(self)
+	self:fly()
 	self:destroy()
-	self:moveWithCollisions(self.x + self.speed, self.y)
 end
 
