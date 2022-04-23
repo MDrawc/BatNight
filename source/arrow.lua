@@ -3,19 +3,28 @@ local gfx <const> = pd.graphics
 
 class('Arrow').extends(gfx.sprite)
 
-local projectileImage = gfx.image.new("images/arrow")
+local arrowImage = gfx.image.new("images/arrow")
 
-function Arrow:init(x, y)
-	-- Arrow.super.init(self) -- is this critical? documentation says so
-	self:setImage(projectileImage)
+function Arrow:init(x, y, angle)
+	self:setImage(arrowImage)
 	self:moveTo(x, y)
-	self.speed = 20
 	self:setCollideRect(0, 0, self:getSize())
 	self:setGroups(1)
+	self.speed = 10
+	self.lifeTime = 5*1000
+	self.timer = pd.timer.new(self.lifeTime, self.lifeTime)
+	self.angle = angle
+end
+
+function Arrow:destroy()
+	if self.timer.value == 0 then
+		self:remove()
+	end
 end
 
 function Arrow:update()
 	Arrow.super.update(self)
+	self:destroy()
 	self:moveWithCollisions(self.x + self.speed, self.y)
 end
 

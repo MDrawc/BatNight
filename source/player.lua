@@ -12,6 +12,7 @@ function Player:init()
 	self.moveSpeed = 6
 	self.atTheTop = false
 	self.atTheBottom = false
+	self.bowAngle = 45
 end
 
 function Player:checkTopAndBottom()
@@ -25,8 +26,8 @@ function Player:checkTopAndBottom()
 	end
 end
 
-function Player:shoot()
-	local arrowInstance = Arrow(self.x + 40, self.y)
+function Player:shoot()	
+	local arrowInstance = Arrow(self.x + 40, self.y, self.bowAngle)
 	arrowInstance:add()
 end
 
