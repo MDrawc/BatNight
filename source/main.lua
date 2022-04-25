@@ -6,7 +6,6 @@ import "CoreLibs/timer"
 import "player"
 import "wall"
 
-
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
